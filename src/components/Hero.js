@@ -8,43 +8,50 @@ const Hero = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const res = await fetch("http://localhost:3001/categories");
-      const data = await res.json();
-      console.log(data);
-      setCategories(data);
+      try {
+        const res = await fetch("http://localhost:3001/categories");
+        const data = await res.json();
+        console.log(data);
+        setCategories(data);
+      } catch (error) {
+        console.log(error);
+      }
     };
     getData();
   }, []);
 
   const handleCategoryClick = (id) => {
     const getData = async () => {
-      const res = await fetch(`http://localhost:3001/products?catId=${id}`);
-      const data = await res.json();
-      console.log(data);
-      setProducts(data);
+      try {
+        const res = await fetch(`http://localhost:3001/products?catId=${id}`);
+        const data = await res.json();
+        console.log(data);
+        setProducts(data);
+      } catch (error) {
+        console.log(error);
+      }
     };
     getData();
   };
   return (
     <div>
-      <div>
-        <h1 className="flex justify-center items-center bg-cyan-600 text-white font-bold text-2xl py-4">
-          My Store
-        </h1>
-      </div>
-      <div className="flex ">
+      <div className="flex">
         <div className="bg-cyan-200">
-          {categories.map((item) => {
-            return (
-              <div key={item.id}>
-                <Categories
-                  id={item.id}
-                  title={item.title}
-                  onCategoryClick={() => handleCategoryClick(item.id)}
-                />
-              </div>
-            );
-          })}
+          {categories.length > 0 ? (
+            categories.map((item) => {
+              return (
+                <div key={item.id}>
+                  <Categories
+                    id={item.id}
+                    title={item.title}
+                    onCategoryClick={() => handleCategoryClick(item.id)}
+                  />
+                </div>
+              );
+            })
+          ) : (
+            <p>No Category Found!</p>
+          )}
         </div>
         <div className="px-10">
           <h2 className="font-semibold text-2xl py-2">All Products:</h2>
@@ -53,6 +60,7 @@ const Hero = () => {
               return (
                 <Products
                   key={item.id}
+                  id={item.id}
                   title={item.title}
                   image={item.image}
                   dimensions={item.specs.dimensions}
@@ -65,11 +73,6 @@ const Hero = () => {
             <p>No Product Found!</p>
           )}
         </div>
-      </div>
-      <div>
-        <h2 className="flex justify-center items-center bg-cyan-700 text-white font-bold  py-1">
-          Designed with ❤️ By Ahsan
-        </h2>
       </div>
     </div>
   );

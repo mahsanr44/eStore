@@ -1,12 +1,11 @@
-import Hero from './components/Hero'
+import Hero from "./components/Hero";
 
 const App = () => {
-
   return (
     <div>
-     <Hero/>
+      <Hero />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

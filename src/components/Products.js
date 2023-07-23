@@ -1,9 +1,12 @@
 import React from "react";
-
-const Products = ({ title, image, dimensions, price, features }) => {
+import { Link, useNavigate } from "react-router-dom";
+const Products = ({id, title, image, dimensions, price, features }) => {
+  const navigate=useNavigate();
   return (
-    <div>
+   <div>
+      <Link to={`/products/${id}`}>
       <h2 className="font-semibold text-cyan-900 mt-5 mb-1">{title}</h2>
+      </Link>
       <div className="flex mx-4">
         <div>
           <img
@@ -17,13 +20,13 @@ const Products = ({ title, image, dimensions, price, features }) => {
           <div className="mx-12">
             <div>
               <h3 className="font-semibold">Dimensions</h3>
-              <p>{dimensions}</p>
+              <p className="text-sm">{dimensions}</p>
             </div>
 
             <div>
               <h3 className="font-semibold">Features</h3>
               <ul>
-                <li>{features}</li>
+                <li className="text-sm">{features}</li>
               </ul>
             </div>
           </div>
@@ -33,7 +36,8 @@ const Products = ({ title, image, dimensions, price, features }) => {
             <p className="border w-fit border-cyan-600 rounded-sm bg-cyan-800 text-white  ">
               Price: ${price}
             </p>
-            <button className="border w-fit border-cyan-600 rounded-sm bg-cyan-600 text-white ">
+            <button className="border w-fit border-cyan-600 rounded-sm bg-cyan-600 text-white "
+            onClick={()=>navigate(`products/${id}`)}>
               View Product
             </button>
             <button className="border w-fit border-cyan-600 rounded-sm bg-cyan-500 text-white ">
@@ -42,7 +46,7 @@ const Products = ({ title, image, dimensions, price, features }) => {
           </div>
         </div>
       </div>
-    </div>
+    </div> 
   );
 };
 
