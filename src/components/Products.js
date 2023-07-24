@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { CartContext } from "../context/cartContext";
 const Products = ({id, title, image, dimensions, price, features }) => {
+
+  const {addProduct}=useContext(CartContext);
+
   const navigate=useNavigate();
+  
   return (
    <div>
       <Link to={`/products/${id}`}>
@@ -40,7 +45,9 @@ const Products = ({id, title, image, dimensions, price, features }) => {
             onClick={()=>navigate(`products/${id}`)}>
               View Product
             </button>
-            <button className="border w-fit border-cyan-600 rounded-sm bg-cyan-500 text-white ">
+            <button
+                 onClick={()=>{ addProduct({id,title,price}); navigate('basket')}}
+                  className="border w-fit border-cyan-600 rounded-sm bg-cyan-500 text-white ">
               Add to Basket
             </button>
           </div>
